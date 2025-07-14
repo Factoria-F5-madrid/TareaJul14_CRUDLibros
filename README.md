@@ -41,6 +41,7 @@ TareaJul14_CRUDLibros/                   # Origen del proyecto
         ├── urls.py
         └── wsgi.py
 ```
+<img width="954" height="594" alt="Image" src="https://github.com/user-attachments/assets/2a653014-79e2-4d83-8081-0c15fa0d04a3" />
 
 ---
 
