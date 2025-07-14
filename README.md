@@ -78,16 +78,16 @@ En MVC, la "vista" es el HTML; en MVT, ese HTML se llama "template".
 El controlador clásico de MVC no está definido como una capa separada en Django, ya que su función está repartida entre el sistema de enrutamiento (urls.py) y las vistas.
 
 En MVC tradicional:
--Usuario hace clic en un botón.
--El Controlador recibe la acción.
--Consulta al Modelo.
--Le pasa los datos a la vista (HTML).
+* Usuario hace clic en un botón.
+* El Controlador recibe la acción.
+* Consulta al Modelo.
+* Le pasa los datos a la vista (HTML).
 
 En Django (MVT):
--Usuario entra a una URL.
--Django busca una vista(view) que responda.
--Esa vista consulta al Modelo si necesita datos.
--Y luego envía los datos a un Template, que se muestra en el navegador.
+* Usuario entra a una URL.
+* Django busca una vista(view) que responda.
+* Esa vista consulta al Modelo si necesita datos.
+* Y luego envía los datos a un Template, que se muestra en el navegador.
 
 ### 📖 ○ ¿Cuál de estos dos patrones se usa en Django?
 Django usa el patrón MVT.
@@ -111,12 +111,12 @@ Básicamente: Solicitud POST del usuario que lleva a una vista (view) >> Django 
 
 ## 📖 5. ¿Qué herramientas o comandos ofrece Django para facilitar el desarrollo de un CRUD, para qué es cada una? (Por ejemplo: startapp, makemigrations, migrate, runserver, ModelForm, admin, etc.)
 Algunas de las mas importantes y que ya hemos utilizado en esta tarea, son:
-startapp: Crea una nueva aplicación dentro del proyecto.
-makemigrations: Prepara los cambios en los modelos para la base de datos.
-migrate: Aplica esos cambios a la base de datos.
-runserver: Inicia el servidor local para probar la aplicación.
-ModelForm: Crea formularios directamente a partir de los modelos.
-admin: Es una herramienta de Django que te permite manejar los datos desde una interfaz web muy completa, sin necesidad de programar nada extra.
+* startapp: Crea una nueva aplicación dentro del proyecto.
+* makemigrations: Prepara los cambios en los modelos para la base de datos.
+* migrate: Aplica esos cambios a la base de datos.
+* runserver: Inicia el servidor local para probar la aplicación.
+* ModelForm: Crea formularios directamente a partir de los modelos.
+* admin: Es una herramienta de Django que te permite manejar los datos desde una interfaz web muy completa, sin necesidad de programar nada extra.
 
 
 ## 📖 6. ¿Cómo funciona el Admin de Django?
@@ -132,8 +132,8 @@ requerido, es decir, un CRUD.
 
 ## ⏩ Entrega
 
-● Subir un repositorio con la práctica terminada
-● Incluir un archivo README.md que contenga las respuestas a las preguntas de la
+* Subir un repositorio con la práctica terminada
+* Incluir un archivo README.md que contenga las respuestas a las preguntas de la
 primera parte.
 
 ---
