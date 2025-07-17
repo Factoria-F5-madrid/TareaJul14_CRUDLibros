@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Carga las variables de entorno del archivo .env
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'libros', # Agrego 'libros'
+    'rest_framework',
+    'categorias',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,10 +83,19 @@ WSGI_APPLICATION = 'system_books_kiru.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Cambia el motor a MySQL
+        'NAME': 'postgres',          # Nombre de tu base de datos
+        'USER': 'postgres.ipsftdelgidynvcgbefw',          # Usuario de tu base de datos
+        'PASSWORD': 'Estaesmicontraseña',  # Contraseña del usuario
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',          # Dirección del servidor de la base de datos (e.g., 'localhost')
+        'PORT': '6543',          # Puerto de la base de datos (por defecto es 3306 para MySQL)
+        'OPTIONS': {
+            'options': os.getenv('POOL_MODE')
+
+        }
     }
 }
+
 
 
 # Password validation

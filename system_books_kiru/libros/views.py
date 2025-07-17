@@ -1,42 +1,44 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Libro
-from .forms import LibroForm
+from categorias.models import Categoria
+from .serializer import LibroSerializer
 
-def lista_libros(request):
-    libros = Libro.objects.all()
-    return render(request, 'libros/lista_libros.html', {'libros': libros})
+class VistasLibros():
+    @api_view(['GET'])
+    def ListaLibros(request):
+        libros = Libro.objects.all()
+        serializer = LibroSerializer(libros, many=True)
+        return Response(serializer.data)
+    
+    @api_view(['POST'])
+    def CrearLibros(request):
 
-def detalle_libro(request, libro_id):
-    libro = get_object_or_404(Libro, pk=libro_id)
-    return render(request, 'libros/detalle_libro.html', {'libro': libro})
+        serializer = LibroSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def crear_libro(request):
-    if request.method == 'POST':
-        form = LibroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_libros')
-    else:
-        form = LibroForm()
-    return render(request, 'libros/crear_libro.html', {'form': form})
+    @api_view(['GET', 'PUT', 'DELETE'])
+    def DetalleLibros(request, pk):
+        try:
+            libro = Libro.objects.get(pk=pk)
+        except Libro.DoesNotExist:
+            return Response({"error": "Libro no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-def editar_libro(request, libro_id):
-    libro = get_object_or_404(Libro, pk=libro_id)
-    if request.method == 'POST':
-        form = LibroForm(request.POST, instance=libro)
-        if form.is_valid():
-            form.save()
-            return redirect('detalle_libro', libro_id=libro.id)
-    else:
-        form = LibroForm(instance=libro)
-    return render(request, 'libros/editar_libro.html', {'form': form, 'libro': libro})
+        if request.method == 'GET':
+            serializer = LibroSerializer(libro)
+            return Response(serializer.data)
 
-def eliminar_libro(request, libro_id):
-    libro = get_object_or_404(Libro, pk=libro_id)
-    if request.method == 'POST':
-        libro.delete()
-        return redirect('lista_libros')
-    return render(request, 'libros/eliminar_libro.html', {'libro': libro})
+        elif request.method == 'PUT':
+            serializer = LibroSerializer(libro, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            libro.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
